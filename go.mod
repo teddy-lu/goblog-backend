@@ -1,4 +1,4 @@
-module go-gin-demo
+module goblog-backend
 
 go 1.21.1
 

@@ -2,7 +2,7 @@ package dao
 
 import (
 	"context"
-	"go-gin-demo/internal/models"
+	"goblog-backend/internal/models"
 	"gorm.io/gorm"
 )
 

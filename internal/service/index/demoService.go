@@ -2,9 +2,9 @@ package index
 
 import (
 	"context"
-	"go-gin-demo/internal/dao"
-	"go-gin-demo/internal/models"
-	"go-gin-demo/pkg/logger"
+	"goblog-backend/internal/dao"
+	"goblog-backend/internal/models"
+	"goblog-backend/pkg/logger"
 )
 
 type DemoService struct {

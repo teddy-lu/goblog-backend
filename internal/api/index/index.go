@@ -1,11 +1,12 @@
 package index
 
 import (
-	"github.com/gin-gonic/gin"
-	"go-gin-demo/internal/api"
-	"go-gin-demo/internal/service/index"
-	"go-gin-demo/pkg/logger"
+	"goblog-backend/internal/api"
+	"goblog-backend/internal/service/index"
+	"goblog-backend/pkg/logger"
 	"net/http"
+
+	"github.com/gin-gonic/gin"
 )
 
 func Index() gin.HandlerFunc {

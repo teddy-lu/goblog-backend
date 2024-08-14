@@ -3,7 +3,7 @@ package db
 import (
 	"fmt"
 	"github.com/go-redis/redis"
-	"go-gin-demo/config"
+	"goblog-backend/config"
 )
 
 var RedisClient *redis.Client

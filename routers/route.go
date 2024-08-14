@@ -2,10 +2,10 @@ package routers
 
 import (
 	"github.com/gin-gonic/gin"
-	"go-gin-demo/internal/api/index"
-	"go-gin-demo/internal/dao"
-	idx "go-gin-demo/internal/service/index"
-	"go-gin-demo/pkg/logger"
+	"goblog-backend/internal/api/index"
+	"goblog-backend/internal/dao"
+	idx "goblog-backend/internal/service/index"
+	"goblog-backend/pkg/logger"
 	"net/http"
 )
 

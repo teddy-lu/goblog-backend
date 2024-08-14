@@ -3,8 +3,8 @@ package db
 import (
 	"errors"
 	"fmt"
-	"go-gin-demo/config"
-	zapLog "go-gin-demo/pkg/logger"
+	"goblog-backend/config"
+	zapLog "goblog-backend/pkg/logger"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 	"sync"

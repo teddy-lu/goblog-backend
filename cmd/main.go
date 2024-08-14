@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"github.com/spf13/pflag"
 	"github.com/spf13/viper"
-	"go-gin-demo/config"
-	"go-gin-demo/pkg/logger"
+	"goblog-backend/config"
+	"goblog-backend/pkg/logger"
 	"log"
 )
 

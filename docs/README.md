@@ -1,4 +1,4 @@
-# go-gin-demo
+# goblog-backend
 
 ## 项目信息
 
@@ -68,7 +68,7 @@ air
 ### 项目配置文件
 
 ```yaml
-name: go-gin-demo
+name: goblog-backend
 mode: debug
 addr: 8080
 

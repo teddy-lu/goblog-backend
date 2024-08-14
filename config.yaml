@@ -1,4 +1,4 @@
-name: go-gin-demo
+name: goblog-backend
 mode: debug
 addr: 8088
 
