@@ -2,20 +2,36 @@ package routers
 
 import (
 	"github.com/gin-gonic/gin"
+	"goblog-backend/internal/api/admin"
 	"goblog-backend/internal/api/index"
+	"goblog-backend/internal/api/web"
 	"goblog-backend/internal/dao"
+	admServ "goblog-backend/internal/service/admin"
 	idx "goblog-backend/internal/service/index"
+	webServ "goblog-backend/internal/service/web"
 	"goblog-backend/pkg/logger"
 	"net/http"
 )
 
 type MyServer struct {
-	demoService *idx.DemoService
+	demoService    *idx.DemoService
+	admAuthService *admServ.AuthService
+	webAuthService *webServ.AuthService
 }
 
-func NewServer(demoStore dao.DemoStore) *MyServer {
+func NewServer(
+	demoStore dao.DemoStore,
+	userStore dao.UsersStore,
+) *MyServer {
 	var demoService = idx.NewDemoService(demoStore)
-	return &MyServer{demoService: demoService}
+	var adminAuthService = admServ.NewAuthService(userStore)
+	var webAuthService = webServ.NewAuthService(userStore)
+
+	return &MyServer{
+		demoService:    demoService,
+		admAuthService: adminAuthService,
+		webAuthService: webAuthService,
+	}
 }
 
 func (srv *MyServer) SetRouter(g *gin.Engine) *gin.Engine {
@@ -37,12 +53,12 @@ func (srv *MyServer) SetRouter(g *gin.Engine) *gin.Engine {
 	g.GET("/demo", index.Demo(*srv.demoService))
 
 	// 前端页面的路由
-	webapi := g.Group("/api/v1")
-	webapi.GET("/login")
+	webG := g.Group("/api/v1")
+	webG.POST("/login", web.WebLogin(*srv.webAuthService))
 
 	// 后台页面的路由
-	adminapi := g.Group("/admin")
-	adminapi.GET("/login")
+	adminG := g.Group("/admin")
+	adminG.POST("/login", admin.AdminLogin(*srv.admAuthService))
 
 	return g
 }

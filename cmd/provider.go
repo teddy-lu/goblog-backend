@@ -59,7 +59,8 @@ func migratorDb(dbm *gorm.DB) error {
 
 func createGinServer(dbm *gorm.DB, mode string) *gin.Engine {
 	demoDao := dao.NewDemoDao(dbm)
-	serv := routers.NewServer(demoDao)
+	userDao := dao.NewUsersDao(dbm)
+	serv := routers.NewServer(demoDao, userDao)
 	if mode == "debug" {
 		gin.SetMode(gin.TestMode)
 	} else {
