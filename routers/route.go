@@ -36,5 +36,13 @@ func (srv *MyServer) SetRouter(g *gin.Engine) *gin.Engine {
 	g.GET("/index", index.Index())
 	g.GET("/demo", index.Demo(*srv.demoService))
 
+	// 前端页面的路由
+	webapi := g.Group("/api/v1")
+	webapi.GET("/login")
+
+	// 后台页面的路由
+	adminapi := g.Group("/admin")
+	adminapi.GET("/login")
+
 	return g
 }
