@@ -6,8 +6,8 @@ import (
 )
 
 type LoginRequest struct {
-	Username string `json:"username,omitempty" valid:"required"`
-	Password string `json:"password,omitempty" valid:"required"`
+	Username string `json:"username,omitempty" valid:"username"`
+	Password string `json:"password,omitempty" valid:"password"`
 }
 
 func LoginByPassword(data interface{}, c *gin.Context) map[string][]string {

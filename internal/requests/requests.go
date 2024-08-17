@@ -4,6 +4,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/thedevsaddam/govalidator"
 	"goblog-backend/internal/api"
+	"net/http"
 )
 
 type ValidatorFunc func(interface{}, *gin.Context) map[string][]string
@@ -14,7 +15,7 @@ func Validate(c *gin.Context, obj interface{}, handler ValidatorFunc) bool {
 		// 	"message": "请求解析失败，请使用 application/json 请求格式",
 		// 	"error":   err.Error(),
 		// })
-		api.Error(c, 400, "请求解析失败，请使用 application/json 请求格式", err)
+		api.Error(c, http.StatusBadRequest, "请求解析失败，请使用 application/json 请求格式", err)
 		return false
 	}
 

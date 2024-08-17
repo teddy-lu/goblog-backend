@@ -54,7 +54,10 @@ func createDb(cfg *config.Config) *gorm.DB {
 
 func migratorDb(dbm *gorm.DB) error {
 	log.Println("migrator database...")
-	return dbm.AutoMigrate(&models.Demo{})
+	return dbm.AutoMigrate(
+		&models.Demo{},
+		&models.User{},
+	)
 }
 
 func createGinServer(dbm *gorm.DB, mode string) *gin.Engine {

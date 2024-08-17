@@ -6,6 +6,7 @@ import (
 	"github.com/spf13/viper"
 	"goblog-backend/config"
 	"goblog-backend/pkg/logger"
+	rsapkg "goblog-backend/pkg/rsa"
 	"log"
 )
 
@@ -27,9 +28,13 @@ func main() {
 	// 初始化db类
 	dbm := createDb(c)
 
+	// 生成rsa密钥对
+	rsapkg.GenerateRsaKey()
+
 	// 实例化server参数，并启动gin
 	fmt.Println("server start...")
 	g := createGinServer(dbm, mode)
+
 	// Listen and Server in 0.0.0.0:8080
 	//if err := g.Run(fmt.Sprintf(":%d", c.Addr)); err != nil {
 	//	panic(err)
