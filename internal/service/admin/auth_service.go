@@ -27,7 +27,7 @@ func (as *AuthService) Login(ctx context.Context, username, password string) (mo
 		return models.User{}, errors.New("用户不存在")
 	}
 
-	if u.Password != "1234567" {
+	if u.Password != "123456" {
 		return models.User{}, errors.New("密码错误")
 	}
 

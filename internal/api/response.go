@@ -52,3 +52,7 @@ func ValidateErr(c *gin.Context, errs map[string][]string) {
 		Err:     errs,
 	})
 }
+
+func InternetServErr(c *gin.Context, err error) {
+	Error(c, http.StatusInternalServerError, "服务器内部错误", err)
+}
