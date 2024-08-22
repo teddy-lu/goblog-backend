@@ -56,3 +56,7 @@ func ValidateErr(c *gin.Context, errs map[string][]string) {
 func InternetServErr(c *gin.Context, err error) {
 	Error(c, http.StatusInternalServerError, "服务器内部错误", err)
 }
+
+func Unauthorized(c *gin.Context, err error) {
+	Error(c, http.StatusUnauthorized, "未授权", err)
+}

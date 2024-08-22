@@ -6,6 +6,7 @@ import (
 	"goblog-backend/internal/api/index"
 	"goblog-backend/internal/api/web"
 	"goblog-backend/internal/dao"
+	"goblog-backend/internal/middlewares"
 	admServ "goblog-backend/internal/service/admin"
 	idx "goblog-backend/internal/service/index"
 	webServ "goblog-backend/internal/service/web"
@@ -59,6 +60,7 @@ func (srv *MyServer) SetRouter(g *gin.Engine) *gin.Engine {
 	// 后台页面的路由
 	adminG := g.Group("/admin")
 	adminG.POST("/login", admin.AdminLogin(*srv.admAuthService))
+	adminG.GET("/articles", middlewares.AdminAuth(), admin.AdminLogin(*srv.admAuthService))
 
 	return g
 }
