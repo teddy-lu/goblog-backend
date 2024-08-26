@@ -9,7 +9,7 @@ import (
 
 func ArticlesList(service admin.ArticleService) gin.HandlerFunc {
 	return func(c *gin.Context) {
-		uid := c.MustGet("uid").(int)
+		uid := c.MustGet("user_id").(int64)
 		logger.Info("uid: %v", uid)
 
 		articles, err := service.List(c)

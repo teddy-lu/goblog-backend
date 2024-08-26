@@ -13,7 +13,7 @@ type Response struct {
 }
 
 func Json(c *gin.Context, code int, message string, data interface{}) {
-	c.JSON(http.StatusOK, Response{
+	c.JSON(code, Response{
 		Code:    code,
 		Message: message,
 		Data:    data,
@@ -23,22 +23,12 @@ func Json(c *gin.Context, code int, message string, data interface{}) {
 
 func Success(c *gin.Context, data interface{}) {
 	code := http.StatusOK
-	c.JSON(code, Response{
-		Code:    code,
-		Message: "Success",
-		Data:    data,
-		Err:     nil,
-	})
+	Json(c, code, "Success", data)
 }
 
 func Created(c *gin.Context, data interface{}) {
 	code := http.StatusCreated
-	c.JSON(code, Response{
-		Code:    code,
-		Message: "Created Success",
-		Data:    data,
-		Err:     nil,
-	})
+	Json(c, code, "Created Success", data)
 }
 
 func Deleted(c *gin.Context) {

@@ -72,6 +72,7 @@ func setDefault() {
 	viper.SetDefault("db.host", "127.0.0.1")
 	viper.SetDefault("db.port", 3306)
 	viper.SetDefault("db.username", "")
+	viper.SetDefault("db.charset", "utf8mb4")
 	viper.SetDefault("db.max_idle_cons", 10)
 	viper.SetDefault("db.max_open_cons", 2)
 

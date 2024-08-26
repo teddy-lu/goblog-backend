@@ -28,7 +28,7 @@ func GetMysqlPool() *MysqlPool {
 }
 
 func (pool MysqlPool) InitPool(cfg *config.Config) (orm *gorm.DB, isSuc bool) {
-	dsn := fmt.Sprintf("%s:%s@tcp(%s:%d)/%s?charset=%s",
+	dsn := fmt.Sprintf("%s:%s@tcp(%s:%d)/%s?charset=%s&parseTime=true&loc=Local",
 		cfg.Db.Username,
 		cfg.Db.Password,
 		cfg.Db.Host,
