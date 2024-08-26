@@ -15,23 +15,29 @@ import (
 )
 
 type MyServer struct {
-	demoService    *idx.DemoService
-	admAuthService *admServ.AuthService
-	webAuthService *webServ.AuthService
+	demoService       *idx.DemoService
+	admAuthService    *admServ.AuthService
+	webAuthService    *webServ.AuthService
+	admArticleService *admServ.ArticleService
 }
 
 func NewServer(
 	demoStore dao.DemoStore,
 	userStore dao.UsersStore,
+	ArticleStore dao.ArticlesStore,
+	// CommentStore dao.CommentsStore,
+	// TagStore dao.TagsStore,
 ) *MyServer {
 	var demoService = idx.NewDemoService(demoStore)
 	var adminAuthService = admServ.NewAuthService(userStore)
 	var webAuthService = webServ.NewAuthService(userStore)
+	var adminArticleService = admServ.NewArticleService(ArticleStore)
 
 	return &MyServer{
-		demoService:    demoService,
-		admAuthService: adminAuthService,
-		webAuthService: webAuthService,
+		demoService:       demoService,
+		admAuthService:    adminAuthService,
+		webAuthService:    webAuthService,
+		admArticleService: adminArticleService,
 	}
 }
 
@@ -54,13 +60,13 @@ func (srv *MyServer) SetRouter(g *gin.Engine) *gin.Engine {
 	g.GET("/demo", index.Demo(*srv.demoService))
 
 	// 前端页面的路由
-	webG := g.Group("/api/v1")
+	webG := g.Group("/front-api/v1")
 	webG.POST("/login", web.WebLogin(*srv.webAuthService))
 
 	// 后台页面的路由
-	adminG := g.Group("/admin")
+	adminG := g.Group("/admin-api")
 	adminG.POST("/login", admin.AdminLogin(*srv.admAuthService))
-	adminG.GET("/articles", middlewares.AdminAuth(), admin.AdminLogin(*srv.admAuthService))
+	adminG.GET("/articles", middlewares.AdminAuth(), admin.ArticlesList(*srv.admArticleService))
 
 	return g
 }

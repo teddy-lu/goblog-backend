@@ -21,6 +21,16 @@ func Json(c *gin.Context, code int, message string, data interface{}) {
 	})
 }
 
+func Success(c *gin.Context, data interface{}) {
+	code := http.StatusOK
+	c.JSON(code, Response{
+		Code:    code,
+		Message: "Success",
+		Data:    data,
+		Err:     nil,
+	})
+}
+
 func Created(c *gin.Context, data interface{}) {
 	code := http.StatusCreated
 	c.JSON(code, Response{

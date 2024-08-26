@@ -55,15 +55,23 @@ func createDb(cfg *config.Config) *gorm.DB {
 func migratorDb(dbm *gorm.DB) error {
 	log.Println("migrator database...")
 	return dbm.AutoMigrate(
-		&models.Demo{},
 		&models.User{},
+		&models.Article{},
+		&models.Comment{},
+		&models.Tag{},
 	)
 }
 
 func createGinServer(dbm *gorm.DB, mode string) *gin.Engine {
 	demoDao := dao.NewDemoDao(dbm)
 	userDao := dao.NewUsersDao(dbm)
-	serv := routers.NewServer(demoDao, userDao)
+	articleDao := dao.NewArticlesDao(dbm)
+	//commentDao := dao.NewCommentsDao(dbm)
+	//tagDao := dao.NewTagsDao(dbm)
+	//commentDao.SetTagDao(tagDao)
+	//articleDao.SetCommentDao(commentDao)
+
+	serv := routers.NewServer(demoDao, userDao, articleDao)
 	if mode == "debug" {
 		gin.SetMode(gin.TestMode)
 	} else {
