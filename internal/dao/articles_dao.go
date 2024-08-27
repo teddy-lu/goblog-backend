@@ -21,7 +21,11 @@ type ArticlesStore interface {
 
 func (a *ArticlesDao) List(ctx context.Context) ([]models.Article, error) {
 	var articles []models.Article
-	err := a.db.WithContext(ctx).Find(&articles).Error
+	err := a.db.WithContext(ctx).
+		Preload("User").
+		Preload("Comments").
+		Preload("Tags").
+		Find(&articles).Error
 	return articles, err
 }
 

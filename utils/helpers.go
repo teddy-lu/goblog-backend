@@ -1,6 +1,10 @@
 package utils
 
-import "net"
+import (
+	mathrand "math/rand"
+	"net"
+	"time"
+)
 
 func GetUserIp() string {
 	// Get the user's IP address
@@ -18,4 +22,14 @@ func GetUserIp() string {
 		}
 	}
 	return ""
+}
+
+func RandomString(length int) string {
+	source := mathrand.New(mathrand.NewSource(time.Now().UnixNano()))
+	letters := "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	b := make([]byte, length)
+	for i := range b {
+		b[i] = letters[source.Intn(len(letters))]
+	}
+	return string(b)
 }

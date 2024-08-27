@@ -13,10 +13,12 @@ type Article struct {
 	Slug     string    `json:"slug" gorm:"type:string;size:255;comment:短标签，短链接"`
 	UserID   uint      `json:"user_id" gorm:"type:int;NOT NULL;index"`
 	User     User      `json:"user" gorm:"foreignKey:UserID"`
-	Comments []Comment `json:"comments" gorm:"foreignKey:ArticleID"`
-	Tags     []Tag     `json:"tags" gorm:"foreignKey:ArticleID"`
+	Comments []Comment `json:"comments"`
+	Tags     []Tag     `json:"tags"`
 
 	CommonTimestampsField
+
+	DeletedTimestampsField
 }
 
 func (a *Article) BeforeCreate(tx *gorm.DB) error {
@@ -25,7 +27,7 @@ func (a *Article) BeforeCreate(tx *gorm.DB) error {
 	return nil
 }
 
-func (a *Article) BeforeUpdate(tx *gorm.DB) error {
+func (a *Article) BeforeSave(tx *gorm.DB) error {
 	a.CommonTimestampsField.UpdatedAt = time.Now()
 	return nil
 }

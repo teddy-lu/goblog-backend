@@ -6,11 +6,13 @@ require (
 	github.com/fsnotify/fsnotify v1.7.0
 	github.com/gin-gonic/gin v1.10.0
 	github.com/go-redis/redis v6.15.9+incompatible
+	github.com/golang-jwt/jwt/v5 v5.2.1
 	github.com/lestrrat-go/file-rotatelogs v2.4.0+incompatible
 	github.com/spf13/pflag v1.0.5
 	github.com/spf13/viper v1.18.2
 	github.com/thedevsaddam/govalidator v1.9.10
 	go.uber.org/zap v1.27.0
+	golang.org/x/crypto v0.23.0
 	gorm.io/driver/mysql v1.5.6
 	gorm.io/gorm v1.25.10
 )
@@ -27,7 +29,6 @@ require (
 	github.com/go-playground/validator/v10 v10.20.0 // indirect
 	github.com/go-sql-driver/mysql v1.7.0 // indirect
 	github.com/goccy/go-json v0.10.2 // indirect
-	github.com/golang-jwt/jwt/v5 v5.2.1 // indirect
 	github.com/hashicorp/hcl v1.0.0 // indirect
 	github.com/jinzhu/inflection v1.0.0 // indirect
 	github.com/jinzhu/now v1.1.5 // indirect
@@ -55,7 +56,6 @@ require (
 	github.com/ugorji/go/codec v1.2.12 // indirect
 	go.uber.org/multierr v1.11.0 // indirect
 	golang.org/x/arch v0.8.0 // indirect
-	golang.org/x/crypto v0.23.0 // indirect
 	golang.org/x/exp v0.0.0-20240506185415-9bf2ced13842 // indirect
 	golang.org/x/net v0.25.0 // indirect
 	golang.org/x/sys v0.20.0 // indirect

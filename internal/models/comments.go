@@ -13,6 +13,8 @@ type Comment struct {
 	Content   string `json:"content" gorm:"type:text;NOT NULL;comment:评论内容"`
 
 	CommonTimestampsField
+
+	DeletedTimestampsField
 }
 
 func (c *Comment) BeforeCreate(tx *gorm.DB) error {
@@ -21,7 +23,7 @@ func (c *Comment) BeforeCreate(tx *gorm.DB) error {
 	return nil
 }
 
-func (c *Comment) BeforeUpdate(tx *gorm.DB) error {
+func (c *Comment) BeforeSave(tx *gorm.DB) error {
 	c.CommonTimestampsField.UpdatedAt = time.Now()
 	return nil
 }
