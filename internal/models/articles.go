@@ -1,10 +1,5 @@
 package models
 
-import (
-	"gorm.io/gorm"
-	"time"
-)
-
 type Article struct {
 	BaseModel
 
@@ -19,15 +14,4 @@ type Article struct {
 	CommonTimestampsField
 
 	DeletedTimestampsField
-}
-
-func (a *Article) BeforeCreate(tx *gorm.DB) error {
-	a.CommonTimestampsField.CreatedAt = time.Now()
-	a.CommonTimestampsField.UpdatedAt = time.Now()
-	return nil
-}
-
-func (a *Article) BeforeSave(tx *gorm.DB) error {
-	a.CommonTimestampsField.UpdatedAt = time.Now()
-	return nil
 }

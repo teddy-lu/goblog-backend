@@ -19,7 +19,8 @@ func NewUsersDao(db *gorm.DB) UsersStore {
 type UsersStore interface {
 	Create(ctx context.Context, data *models.User) error
 	Detail(ctx context.Context, id int64) (models.User, error)
-	GetUser(ctx context.Context, username string) models.User
+	GetUserByAccount(ctx context.Context, username string) models.User
+	Update(ctx context.Context, data *models.User) error
 }
 
 func (u *usersDao) Create(ctx context.Context, data *models.User) error {
@@ -32,11 +33,15 @@ func (u *usersDao) Detail(ctx context.Context, id int64) (models.User, error) {
 	return user, err
 }
 
-func (u *usersDao) GetUser(ctx context.Context, username string) models.User {
+func (u *usersDao) GetUserByAccount(ctx context.Context, username string) models.User {
 	var user models.User
 	u.db.WithContext(ctx).
 		Where(&models.User{Username: username}).
 		First(&user)
 
 	return user
+}
+
+func (u *usersDao) Update(ctx context.Context, data *models.User) error {
+	return u.db.WithContext(ctx).Save(data).Error
 }

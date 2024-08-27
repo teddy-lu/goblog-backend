@@ -3,9 +3,13 @@ package admin
 import (
 	"context"
 	"errors"
+	"fmt"
 	"goblog-backend/internal/dao"
 	"goblog-backend/internal/models"
 	"goblog-backend/pkg/hash"
+	"goblog-backend/pkg/logger"
+	"goblog-backend/utils"
+	"time"
 )
 
 type AuthService struct {
@@ -18,14 +22,23 @@ func NewAuthService(store dao.UsersStore) *AuthService {
 
 func (as *AuthService) Login(ctx context.Context, username, password string) (models.User, error) {
 	var u models.User
-	u = as.UsersStore.GetUser(ctx, username)
+	u = as.UsersStore.GetUserByAccount(ctx, username)
 
 	if u.ID == 0 {
 		return models.User{}, errors.New("用户不存在")
 	}
 
-	if !hash.BcryptCheck(password, u.Password) {
+	inputPwd := fmt.Sprintf("%s-%s", password, u.Salt)
+	if !hash.BcryptCheck(inputPwd, u.Password) {
 		return models.User{}, errors.New("密码错误")
+	}
+
+	// 更新用户登陆时间
+	u.LastLoginAt = time.Now()
+	u.LoginIP = utils.GetUserIp()
+	err := as.UsersStore.Update(ctx, &u)
+	if err != nil {
+		logger.Error(err.Error())
 	}
 
 	return u, nil
