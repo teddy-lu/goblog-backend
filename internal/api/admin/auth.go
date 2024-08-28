@@ -3,18 +3,10 @@ package admin
 import (
 	"github.com/gin-gonic/gin"
 	"goblog-backend/internal/api"
-	"goblog-backend/internal/models"
 	"goblog-backend/internal/requests"
 	"goblog-backend/internal/service/admin"
 	"goblog-backend/pkg/logger"
-	"time"
 )
-
-type UserInfo struct {
-	User      models.User `json:"user_info"`
-	Token     string      `json:"token"`
-	ExpiredAt time.Time   `json:"expired_at"`
-}
 
 func AdminLogin(service admin.AuthService) gin.HandlerFunc {
 	return func(c *gin.Context) {
