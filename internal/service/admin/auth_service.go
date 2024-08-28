@@ -7,6 +7,7 @@ import (
 	"goblog-backend/internal/dao"
 	"goblog-backend/internal/models"
 	"goblog-backend/pkg/hash"
+	"goblog-backend/pkg/jwt"
 	"goblog-backend/pkg/logger"
 	"goblog-backend/utils"
 	"time"
@@ -42,4 +43,31 @@ func (as *AuthService) Login(ctx context.Context, username, password string) (mo
 	}
 
 	return u, nil
+}
+
+type UserInfo struct {
+	User      *models.User `json:"user_info"`
+	Token     string       `json:"token"`
+	ExpiredAt time.Time    `json:"expired_at"`
+}
+
+func (as *AuthService) Auth(u *models.User) (UserInfo, error) {
+	// 获取jwt token
+	authJWT, err := jwt.NewJWT()
+	if err != nil {
+		logger.Error(err.Error())
+		return UserInfo{}, err
+	}
+	token, expiredAt := authJWT.IssueToken(u.ID, u.Username)
+	if token == "" {
+		return UserInfo{}, errors.New("token生成失败")
+	}
+
+	// 返回响应
+	res := UserInfo{
+		User:      u,
+		Token:     token,
+		ExpiredAt: expiredAt,
+	}
+	return res, nil
 }
