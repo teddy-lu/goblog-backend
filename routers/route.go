@@ -65,7 +65,7 @@ func (srv *MyServer) SetRouter(g *gin.Engine) *gin.Engine {
 
 	// 后台页面的路由
 	adminG := g.Group("/admin-api")
-	adminG.POST("/login", admin.AdminLogin(*srv.admAuthService))
+	adminG.POST("/login", admin.Login(*srv.admAuthService))
 	adminG.GET("/articles", middlewares.AdminAuth(), admin.ArticlesList(*srv.admArticleService))
 
 	return g

@@ -8,7 +8,7 @@ import (
 	"goblog-backend/pkg/logger"
 )
 
-func AdminLogin(service admin.AuthService) gin.HandlerFunc {
+func Login(service admin.AuthService) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		// 表单验证
 		request := requests.LoginRequest{}
