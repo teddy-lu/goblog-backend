@@ -53,6 +53,7 @@ func (as AuthService) RegisterWithPwd(ctx context.Context, data interface{}) (mo
 		Username: data.(requests.RegisterRequest).Username,
 		Password: data.(requests.RegisterRequest).Password,
 		Email:    data.(requests.RegisterRequest).Email,
+		Nickname: data.(requests.RegisterRequest).Nickname,
 	}
 	err := as.UsersStore.Create(ctx, &user)
 	if err != nil {
