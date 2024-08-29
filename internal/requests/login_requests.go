@@ -10,7 +10,7 @@ type LoginRequest struct {
 	Password string `json:"password,omitempty" valid:"password"`
 }
 
-func LoginByPassword(data interface{}, c *gin.Context) map[string][]string {
+func LoginByPassword(data interface{}, _ *gin.Context) map[string][]string {
 	rules := govalidator.MapData{
 		"username": []string{"required"},
 		"password": []string{"required"},

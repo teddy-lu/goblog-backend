@@ -14,7 +14,7 @@ type RegisterRequest struct {
 	Nickname       string `json:"nickname" valid:"nickname"`
 }
 
-func Register(data interface{}, ctx *gin.Context) map[string][]string {
+func Register(data interface{}, _ *gin.Context) map[string][]string {
 	rules := govalidator.MapData{
 		"username":        []string{"required", "between:3,20", "alpha_num", "is_exists:users,username"},
 		"password":        []string{"required", "min:6"},
