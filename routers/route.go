@@ -61,7 +61,8 @@ func (srv *MyServer) SetRouter(g *gin.Engine) *gin.Engine {
 
 	// 前端页面的路由
 	webG := g.Group("/front-api/v1")
-	webG.POST("/login", web.WebLogin(*srv.webAuthService))
+	webG.POST("/login", web.Login(*srv.webAuthService))
+	webG.POST("/register", web.Register(*srv.webAuthService))
 
 	// 后台页面的路由
 	adminG := g.Group("/admin-api")

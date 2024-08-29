@@ -35,7 +35,9 @@ func (as *AuthService) Login(ctx context.Context, username, password string) (mo
 	}
 
 	// 更新用户登陆时间
-	u.LastLoginAt = time.Now()
+	currentTime := models.LocalTime(time.Now())
+	//localTimeVal := models.BasicTime{Time: models.LocalTime(currentTime)}
+	u.LastLoginAt = &currentTime
 	u.LoginIP = utils.GetUserIp()
 	err := as.UsersStore.Update(ctx, &u)
 	if err != nil {

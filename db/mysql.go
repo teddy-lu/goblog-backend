@@ -16,7 +16,7 @@ type MysqlPool struct {
 var instance *MysqlPool
 var once sync.Once
 
-var db *gorm.DB
+var Db *gorm.DB
 var err error
 
 func GetMysqlPool() *MysqlPool {
@@ -41,7 +41,7 @@ func (pool MysqlPool) InitPool(cfg *config.Config) (orm *gorm.DB, isSuc bool) {
 	})
 
 	zapLogger := zapLog.New()
-	db, err = gorm.Open(dbConfig, &gorm.Config{
+	Db, err = gorm.Open(dbConfig, &gorm.Config{
 		Logger:                                   zapLogger,
 		DisableForeignKeyConstraintWhenMigrating: true,
 	})
@@ -50,7 +50,7 @@ func (pool MysqlPool) InitPool(cfg *config.Config) (orm *gorm.DB, isSuc bool) {
 		return nil, false
 	}
 
-	dbase, err := db.DB()
+	dbase, err := Db.DB()
 	if err != nil {
 		panic(errors.New("get mysql DB failed"))
 		return nil, false
@@ -63,5 +63,5 @@ func (pool MysqlPool) InitPool(cfg *config.Config) (orm *gorm.DB, isSuc bool) {
 	// 设置每个链接的过期时间
 	//dbase.SetConnMaxLifetime(time.Duration(viper.GetInt("db.conn_max_lifetime")) * time.Second)
 
-	return db, true
+	return Db, true
 }
