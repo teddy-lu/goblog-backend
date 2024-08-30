@@ -19,6 +19,7 @@ type MyServer struct {
 	admAuthService    *admServ.AuthService
 	webAuthService    *webServ.AuthService
 	admArticleService *admServ.ArticleService
+	webArticleService *webServ.ArticlesService
 }
 
 func NewServer(
@@ -32,12 +33,14 @@ func NewServer(
 	var adminAuthService = admServ.NewAuthService(userStore)
 	var webAuthService = webServ.NewAuthService(userStore)
 	var adminArticleService = admServ.NewArticleService(ArticleStore)
+	var webArticleService = webServ.NewArticleService(ArticleStore)
 
 	return &MyServer{
 		demoService:       demoService,
 		admAuthService:    adminAuthService,
 		webAuthService:    webAuthService,
 		admArticleService: adminArticleService,
+		webArticleService: webArticleService,
 	}
 }
 
@@ -63,6 +66,8 @@ func (srv *MyServer) SetRouter(g *gin.Engine) *gin.Engine {
 	webG := g.Group("/front-api/v1")
 	webG.POST("/login", web.Login(*srv.webAuthService))
 	webG.POST("/register", web.Register(*srv.webAuthService))
+	webG.GET("/articles", web.ListArticle(*srv.webArticleService))
+	webG.GET("/article/:id", web.GetArticle(*srv.webArticleService))
 
 	// 后台页面的路由
 	adminG := g.Group("/admin-api")

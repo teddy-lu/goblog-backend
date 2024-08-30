@@ -16,7 +16,7 @@ func NewArticleService(store dao.ArticlesStore) *ArticleService {
 
 func (ats *ArticleService) List(ctx context.Context) ([]models.Article, error) {
 	var a []models.Article
-	a, err := ats.ArticleStore.List(ctx)
+	a, err := ats.ArticleStore.List(ctx, 1, 10)
 	if err != nil {
 		return nil, err
 	}

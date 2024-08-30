@@ -1,7 +1,6 @@
 package web
 
 import (
-	"fmt"
 	"github.com/gin-gonic/gin"
 	"goblog-backend/internal/api"
 	"goblog-backend/internal/requests"
@@ -31,14 +30,13 @@ func Login(serv web.AuthService) gin.HandlerFunc {
 			api.InternetServErr(c, err)
 			return
 		}
-		api.Json(c, 200, "success", res)
+		api.Success(c, res)
 	}
 }
 
 func Register(serv web.AuthService) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		request := requests.RegisterRequest{}
-		fmt.Println(request)
 		if ok := requests.Validate(c, &request, requests.Register); !ok {
 			return
 		}
@@ -49,7 +47,6 @@ func Register(serv web.AuthService) gin.HandlerFunc {
 			api.InternetServErr(c, err)
 			return
 		}
-		api.Json(c, 200, "success", u)
+		api.Created(c, u)
 	}
-
 }
