@@ -15,17 +15,19 @@ import (
 )
 
 type MyServer struct {
-	demoService       *idx.DemoService
-	admAuthService    *admServ.AuthService
-	webAuthService    *webServ.AuthService
-	admArticleService *admServ.ArticleService
-	webArticleService *webServ.ArticlesService
+	demoService        *idx.DemoService
+	admAuthService     *admServ.AuthService
+	webAuthService     *webServ.AuthService
+	admArticleService  *admServ.ArticleService
+	webArticleService  *webServ.ArticlesService
+	webLifeLogsService *webServ.LifeLogsService
 }
 
 func NewServer(
 	demoStore dao.DemoStore,
 	userStore dao.UsersStore,
 	ArticleStore dao.ArticlesStore,
+	LifeLogsStore dao.LifeLogsStore,
 	// CommentStore dao.CommentsStore,
 	// TagStore dao.TagsStore,
 ) *MyServer {
@@ -34,13 +36,15 @@ func NewServer(
 	var webAuthService = webServ.NewAuthService(userStore)
 	var adminArticleService = admServ.NewArticleService(ArticleStore)
 	var webArticleService = webServ.NewArticleService(ArticleStore)
+	var webLifeLogsService = webServ.NewLifeLogsService(LifeLogsStore)
 
 	return &MyServer{
-		demoService:       demoService,
-		admAuthService:    adminAuthService,
-		webAuthService:    webAuthService,
-		admArticleService: adminArticleService,
-		webArticleService: webArticleService,
+		demoService:        demoService,
+		admAuthService:     adminAuthService,
+		webAuthService:     webAuthService,
+		admArticleService:  adminArticleService,
+		webArticleService:  webArticleService,
+		webLifeLogsService: webLifeLogsService,
 	}
 }
 
@@ -68,6 +72,7 @@ func (srv *MyServer) SetRouter(g *gin.Engine) *gin.Engine {
 	webG.POST("/register", web.Register(*srv.webAuthService))
 	webG.GET("/articles", web.ListArticle(*srv.webArticleService))
 	webG.GET("/article/:id", web.GetArticle(*srv.webArticleService))
+	webG.GET("/life-logs", web.ListLogs(*srv.webLifeLogsService))
 
 	// 后台页面的路由
 	adminG := g.Group("/admin-api")

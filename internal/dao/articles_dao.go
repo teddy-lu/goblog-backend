@@ -28,6 +28,7 @@ func (a *ArticlesDao) List(ctx context.Context, page, limit int) ([]models.Artic
 		Preload("Comments").
 		Preload("Tags").
 		Limit(limit).Offset(offset).
+		Order("created_at desc").
 		Find(&articles).Error
 	return articles, err
 }
