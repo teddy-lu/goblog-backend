@@ -60,6 +60,9 @@ func migratorDb(dbm *gorm.DB) error {
 		&models.Comment{},
 		&models.Tag{},
 		&models.LifeLogs{},
+		&models.Image{},
+		&models.Album{},
+		//&models.Category{},
 	)
 }
 
@@ -68,12 +71,14 @@ func createGinServer(dbm *gorm.DB, mode string) *gin.Engine {
 	userDao := dao.NewUsersDao(dbm)
 	articleDao := dao.NewArticlesDao(dbm)
 	lifeLogsDao := dao.NewLifeLogsDao(dbm)
+	albumDao := dao.NewAlbumsDao(dbm)
+	imageDao := dao.NewImagesDao(dbm)
 	//commentDao := dao.NewCommentsDao(dbm)
 	//tagDao := dao.NewTagsDao(dbm)
 	//commentDao.SetTagDao(tagDao)
 	//articleDao.SetCommentDao(commentDao)
 
-	serv := routers.NewServer(demoDao, userDao, articleDao, lifeLogsDao)
+	serv := routers.NewServer(demoDao, userDao, articleDao, lifeLogsDao, albumDao, imageDao)
 	if mode == "debug" {
 		gin.SetMode(gin.TestMode)
 	} else {

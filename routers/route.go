@@ -21,6 +21,8 @@ type MyServer struct {
 	admArticleService  *admServ.ArticleService
 	webArticleService  *webServ.ArticlesService
 	webLifeLogsService *webServ.LifeLogsService
+	webAlbumsService   *webServ.AlbumsService
+	webImagesService   *webServ.ImagesService
 }
 
 func NewServer(
@@ -28,6 +30,8 @@ func NewServer(
 	userStore dao.UsersStore,
 	ArticleStore dao.ArticlesStore,
 	LifeLogsStore dao.LifeLogsStore,
+	AlbumsStore dao.AlbumsStore,
+	ImagesStore dao.ImagesStore,
 	// CommentStore dao.CommentsStore,
 	// TagStore dao.TagsStore,
 ) *MyServer {
@@ -37,6 +41,8 @@ func NewServer(
 	var adminArticleService = admServ.NewArticleService(ArticleStore)
 	var webArticleService = webServ.NewArticleService(ArticleStore)
 	var webLifeLogsService = webServ.NewLifeLogsService(LifeLogsStore)
+	var webAlbumsService = webServ.NewAlbumsService(AlbumsStore)
+	var webImagesService = webServ.NewImagesService(ImagesStore)
 
 	return &MyServer{
 		demoService:        demoService,
@@ -45,6 +51,8 @@ func NewServer(
 		admArticleService:  adminArticleService,
 		webArticleService:  webArticleService,
 		webLifeLogsService: webLifeLogsService,
+		webAlbumsService:   webAlbumsService,
+		webImagesService:   webImagesService,
 	}
 }
 
@@ -73,6 +81,9 @@ func (srv *MyServer) SetRouter(g *gin.Engine) *gin.Engine {
 	webG.GET("/articles", web.ListArticle(*srv.webArticleService))
 	webG.GET("/article/:id", web.GetArticle(*srv.webArticleService))
 	webG.GET("/life-logs", web.ListLogs(*srv.webLifeLogsService))
+	webG.GET("/albums", web.ListAlbums(*srv.webAlbumsService))
+	webG.POST("/albums", web.CreateAlbum(*srv.webAlbumsService))
+	webG.GET("/albums/:id/images", web.ListImages(*srv.webImagesService))
 
 	// 后台页面的路由
 	adminG := g.Group("/admin-api")
