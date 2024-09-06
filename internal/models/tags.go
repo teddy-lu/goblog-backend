@@ -1,5 +1,6 @@
 package models
 
+// Tag 标签
 type Tag struct {
 	BaseModel
 

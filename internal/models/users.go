@@ -7,6 +7,7 @@ import (
 	"gorm.io/gorm"
 )
 
+// User 用户
 type User struct {
 	BaseModel
 

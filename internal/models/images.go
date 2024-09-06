@@ -1,5 +1,6 @@
 package models
 
+// Image 图片
 type Image struct {
 	BaseModel
 

@@ -62,6 +62,8 @@ func migratorDb(dbm *gorm.DB) error {
 		&models.LifeLogs{},
 		&models.Image{},
 		&models.Album{},
+		&models.MessageBoard{},
+		&models.ArticleLikes{},
 		//&models.Category{},
 	)
 }
