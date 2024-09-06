@@ -42,7 +42,7 @@ func (a *AlbumsDao) Detail(ctx context.Context, id int64) (models.Album, error) 
 }
 
 func (a *AlbumsDao) CreateAlbum(ctx context.Context, album *models.Album) (id int64, err error) {
-	err = a.db.WithContext(ctx).Create(album).Error
+	err = a.db.WithContext(ctx).Create(&album).Error
 	id = album.ID
 	return id, err
 }

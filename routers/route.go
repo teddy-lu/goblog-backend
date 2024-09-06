@@ -84,6 +84,7 @@ func (srv *MyServer) SetRouter(g *gin.Engine) *gin.Engine {
 	webG.GET("/albums", web.ListAlbums(*srv.webAlbumsService))
 	webG.POST("/albums", web.CreateAlbum(*srv.webAlbumsService))
 	webG.GET("/albums/:id/images", web.ListImages(*srv.webImagesService))
+	webG.POST("/albums/:id/images", web.CreateImage(*srv.webImagesService))
 
 	// 后台页面的路由
 	adminG := g.Group("/admin-api")

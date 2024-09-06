@@ -9,7 +9,7 @@ type Image struct {
 	Url         string `json:"url" gorm:"type:string;size:255;NOT NULL;comment:图片链接"`
 	Title       string `json:"title" gorm:"type:string;size:255;NOT NULL;comment:图片标题"`
 	Alt         string `json:"alt" gorm:"type:string;size:255;NOT NULL;comment:图片别名"`
-	IsPrivate   bool   `json:"is_private" gorm:"type:bool;NOT NULL;default:false;comment:是否私有"`
+	IsPrivate   int    `json:"is_private" gorm:"type:int;NOT NULL;default:0;comment:是否私有,0-公开，1-私密"`
 	Description string `json:"description" gorm:"type:string;size:255;NOT NULL;comment:图片描述"`
 	//Width     int    `json:"width"`
 	//Height    int    `json:"height"`
