@@ -3,7 +3,11 @@
 运行
 
 ```shell
+# 方式1
 go run main.go
+
+# 方式2 如果安装了air
+air
 ```
 
 功能点描述
